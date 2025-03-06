@@ -30,9 +30,13 @@ public  class Main {
         int a=(size-1)/2;
         Vector<Integer>index=new Vector<>(); //x가 있는 위치
 
-        for(int i=0;i<=a;i++){
-            if(str.charAt(i)==str.charAt(i+a+1)){
-
+        for(int i=0,j=0;i<=a;i++){
+            if(j+a+1>=size){
+                index.add(i);
+                break;
+            }
+            if(str.charAt(i)==str.charAt(j+a+1)){
+                j++;
             }else{
                 index.add(i);
                 break;
