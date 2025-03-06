@@ -1,0 +1,75 @@
+import java.awt.print.Pageable;
+import java.io.*;
+import java.util.*;
+
+import static java.util.Arrays.sort;
+public  class Main {
+
+    public  static void main(String[] args) throws IOException {
+//
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        //추가된 문자 : x
+
+        //조건:문자열의 개수==홀수(a + 1(추가된 문자) + a)
+
+        int n=Integer.parseInt(st.nextToken());
+
+        st=new StringTokenizer(br.readLine());
+        String str=st.nextToken();
+
+
+        if(n%2==0){
+            System.out.println("NOT POSSIBLE");
+            return;
+        }
+
+        //case1 :추가된 문자가 앞쪽에 있을 경우 (a+1) +a
+        int size=str.length();
+        int a=(size-1)/2;
+        Vector<Integer>index=new Vector<>(); //x가 있는 위치
+
+        for(int i=0;i<=a;i++){
+            if(str.charAt(i)==str.charAt(i+a+1)){
+
+            }else{
+                index.add(i);
+                break;
+            }
+        }
+
+//        if(index.size()>=2){
+//            System.out.println("NOT UNIQUE");
+//            return;
+//        }
+        if(index.size()==1){
+            for(int i=0;i<=a;i++){
+                if(i==index.get(0)) continue;
+                System.out.print(str.charAt(i));
+            }
+            System.out.println(index);
+            return;
+        }
+        //case2 : 추가된 문자가 뒤쪽에 있을 경우 a + (a+1)
+        for(int i=a;i<size;i++){
+            if(str.charAt(i)==str.charAt(i-a)){
+
+            }else{
+                index.add(i);
+                break;
+            }
+        }
+        if(index.size()>=2){
+            System.out.println("NOT UNIQUE");
+            return;
+        }
+
+        for(int i=a;i<size;i++){
+            if(i==index.get(0)) continue;
+            System.out.print(str.charAt(i));
+        }
+        System.out.println(index);
+
+    }
+}
