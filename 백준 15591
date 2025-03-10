@@ -4,27 +4,30 @@ import java.util.*;
 
 import static java.util.Arrays.sort;
 public  class Main {
+   static class pair{
+        int start;
+        int end;
+        int USADO;
+
+        public pair(int start,int end,int USADO){
+            this.start=start;
+            this.end=end;
+            this.USADO=USADO;
+        }
+    }
 
     public  static void main(String[] args) throws IOException {
-        class pair{
-            int end;
-            int USADO;
-
-            public pair(int end,int USADO){
-                this.end=end;
-                this.USADO=USADO;
-            }
-        }
 
 
         BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st=new StringTokenizer(br.readLine());
 
         int n=Integer.parseInt(st.nextToken());
+        int q=Integer.parseInt(st.nextToken());
 
 
 
-        Vector<Integer>[] g=new Vector[n+1];
+        Vector<pair>[] g=new Vector[n+1];
         Set<Integer>s[]=new HashSet[n+1];
         for(int i=0;i<=n;i++){
             s[i]=new HashSet<>();
@@ -34,19 +37,17 @@ public  class Main {
         }
 
 
-        st=new StringTokenizer(br.readLine());
-        int q=Integer.parseInt(st.nextToken());
 
-        for(int i=1;i<=n;i++){
+
+        for(int i=1;i<n;i++){
             int start,end,USADO;
             st=new StringTokenizer(br.readLine());
             start=Integer.parseInt(st.nextToken());
             end=Integer.parseInt(st.nextToken());
             USADO=Integer.parseInt(st.nextToken());
-            s[start].add(end);
-            s[end].add(start);
-            g[start].add(USADO);
-            g[end].add(USADO);
+
+            g[start].add(new pair(start,end,USADO));
+            g[end].add(new pair(end,start,USADO));
         }
 
         for(int i=0;i<q;i++){
@@ -55,24 +56,36 @@ public  class Main {
             int v=Integer.parseInt(st.nextToken());//해당 동영상
 
             boolean visited[]=new boolean[n+1];
-            int answer=0;
-            bfs(v,k,visited,answer,g[v]);
+            int answer=bfs(v,k,visited,g);
+            System.out.println(answer);
         }
     }
 
-    static void bfs(int v,int k,boolean visited[],int answer,Vector<Integer>g){
-        Queue<Integer>q=new LinkedList<>();
+    static int bfs(int v,int k,boolean visited[],Vector<pair>g[]){
+        Queue<pair>q=new LinkedList<>();
 
-        q.add(v);
+        int ans=0;
+        for(int i=0;i<g[v].size();i++){
+            q.add(g[v].get(i));
+//            visited[g[v].get(i).start]=true;
+////            visited[g[v].get(i).end]=true;
+////            if(k<=g[v].get(i).USADO) ans++;
+        }
+
+
         while(!q.isEmpty()){
-            int a=q.poll();
-            if(a>=k){
-                answer++;
-                for(int i=0;i<g.size();i++){
-                    if()
+            int min=q.peek().USADO;
+            int start=q.poll().start;
+            visited[start]=true;
+            pair p=q.poll();
+            for(pair pp:g[start]){
+                min=Math.min(min,pp.USADO);
+                if(!visited[pp.end]&&min>=k){
+                    q.add(new pair(pp.start,pp.end,min));
+                    ans++;
                 }
             }
-
         }
+        return ans;
     }
 }
