@@ -1,73 +1,60 @@
 #include<iostream>
 #include<vector>
+#include<set>
 using namespace std;
 
-int find(int x,vector<int>&parent){
-    if(x!=parent[x]) parent[x]=find(parent[x],parent);
-    return parent[x];
-}
-void unionn(int x,int y,vector<int>&parent){
-    int rootX=find(x,parent);
-    int rootY=find(y,parent);
+class Solution {
 
-    if(rootX<rootY){
-        parent[rootY]=rootX;
-    }else{
-        parent[rootX]=rootY;
+public:
+    int find(int x,vector<int>&parent){
+        if(parent[x]!=x)parent[x]=find(parent[x],parent);
+        return parent[x];
     }
+    void unionn(int x,int y,vector<int>&parent,vector<int>&rank){
+        int rootX=find(x,parent);
+        int rootY=find(y,parent);
 
-} 
-int main(){
-    int G,P;    //G: gate수, P: 비행기 수
-    cin>>G;
-    cin>>P;
-
-    vector<int>airplaneGates; //비행기
-    vector<int>parent(G+1); //부모
-    vector<bool>full(G+1); //도킹되었는지 여부
-
-    for(int i=0;i<=G;i++){
-        parent[i]=i;
-        full[i]=false;
-    }
-
-    int dap=0;
-
-    for(int i=0;i<P;i++){
-        int tmp;
-        cin>>tmp;
-        airplaneGates.push_back(tmp);
-    }
-
-    for(int i=0;i<airplaneGates.size();i++){
-        int airplaneGate=airplaneGates[i];
-
-        //비어있을 경우
-        if(full[airplaneGate]==false){
-
-            full[airplaneGate]=true;    dap++;
-            if(airplaneGate>1&&full[airplaneGate-1]==true){
-                unionn(airplaneGate,airplaneGate-1,parent);
-            }
-            if(airplaneGate<G&&full[airplaneGate+1]==true){
-                unionn(airplaneGate,airplaneGate+1,parent);
-            }
+        if(rank[rootX]<rank[rootY]){
+            parent[rootX]=rootY;
         }
-        else{
-            int ableDockingGate=find(airplaneGate,parent)-1;
-            if(ableDockingGate==0){
-                cout<<dap;
-                return 0;
-            }else{
-                full[ableDockingGate]=true;   dap++;
+        else if(rank[rootY]<rank[rootX]){
+            parent[rootY]=rootX;
+        }else{
+            parent[rootY]=rootX;
+            rank[rootX]++;
+        }
 
-                
-                unionn(ableDockingGate,airplaneGate,parent);
-                if(ableDockingGate-1>=1&&full[ableDockingGate-1]==true){
-                    unionn(ableDockingGate,ableDockingGate-1,parent);
+    }
+    int numIslands(vector<vector<char>>& grid) {
+        int n=grid[0].size();
+        int m=grid.size();
+        set<int>s;
+        vector<int>parent(n*m);
+        vector<int>rank(n*m);
+        for(int i=0;i<n*m;i++){
+            parent[i]=i;
+            rank[i]=0;
+        }
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(grid[i][j]=='1'){
+                   
+                    if(j<n-1&&grid[i][j+1]=='1') unionn(i*n+j,i*n+(j+1),parent,rank);
+                    if(i<m-1&&grid[i+1][j]=='1') unionn(i*n+j,(i+1)*n+j,parent,rank);
+                   
+                    
+                     
                 }
             }
         }
+        int dap=0;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                
+                if(grid[i][j]=='1'&&parent[i*n+j]==i*n+j)dap++;
+        }
+        }
+
+        return dap;
     }
-    cout<<dap;
-}
+};
