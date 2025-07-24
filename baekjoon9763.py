@@ -1,28 +1,26 @@
 n=int(input())
-result=[]
+
+list=[]
+dap=100000000
 for i in range(n):
     x,y,z=map(int,input().split())
-    result.append((x,y,z))
-result2=[]
-#v=[[] for _ in range(10000)]
-min1=100000000
-for i in range(1,len(result),1):
+    list.append((x,y,z))
+for i in range(1,n,1):
+    min1=100000000
     min2=100000000
-    min3=100000000
-    for j in range(0,len(result),1):
-        if j==i:continue
-        A=abs(result[i][0]-result[j][0])
-        B=abs(result[i][1]-result[j][1])
-        C=abs(result[i][2]-result[j][2])
+    for j in range(0,n,1):
+        if i==j:
+            continue
+        a=abs(list[i][0]-list[j][0])
+        b=abs(list[i][1]-list[j][1])
+        c=abs(list[i][2]-list[j][2])
+
+        if min1>a+b+c:
+            min2=min1
+            min1=a+b+c
+        elif min2>a+b+c:
+            min2=a+b+c
+        dap=min(dap,min1+min2)
+
+print(dap)
         
-        if A+B+C<min2:
-            min3=min2
-            min2=A+B+C
-        elif A+B+C<min3:
-            min3=A+B+C
-       
-
-    min1=min(min1,min2+min3)
-
-
-print(min1)
