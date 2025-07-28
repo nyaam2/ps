@@ -3,10 +3,29 @@ from math import comb
 import math
 n=int(input())
 arr=list(map(int,input().split()))
-arr2=[]
-for co in combinations(arr,2):
-    arr2.append(co[0]+co[1])
 
-arr2.sort()
-print(arr2)
-print(arr2[math.ceil((len(arr2)-1)/2)])
+
+arr.sort()
+lo = arr[0] + arr[1]
+hi = arr[-1] + arr[-2]
+need = math.floor((n*(n-1)//2 - 1)/2)
+# print(lo,hi,need)
+
+ans=0
+while lo<=hi:
+    mid=lo+(hi-lo)//2
+    cnt=0
+    j=n-1
+    for i in range(n):
+        while j>i and arr[i]+arr[j]>mid:
+            j-=1
+        cnt+=max(0,j-i)
+    if cnt>need:
+        hi=mid-1
+        
+        ans=mid
+    else:
+       
+        lo=mid+1
+
+print(ans)
