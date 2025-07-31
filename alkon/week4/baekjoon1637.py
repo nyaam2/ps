@@ -12,6 +12,7 @@ right=2147483647
 while left<=right:
     mid=left+(right-left)//2
     cnt=0
+    print(f"left : {left}, right : {right}, mid : {mid}")
     for i in range(n):
         a,c,b=arr[i]
         if mid<a:
