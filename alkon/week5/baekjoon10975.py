@@ -19,6 +19,7 @@ for i in range(n):
     cnt+=1
 # print(m)
 d=[ deque() for _ in range(50)]
+print(m)
 idx=1
 d[0].append(arr[0])
 for i in range(1,n,1):
@@ -33,7 +34,7 @@ for i in range(1,n,1):
         if flag==True:
             break
     if flag==False:
-        print(arr[i])
+        # print(arr[i])
         d[idx].append(arr[i])
         idx+=1
 print(idx)
