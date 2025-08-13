@@ -1,3 +1,4 @@
+#처음에 생각했던 코드
 # while True:
 #     n,k=map(int,input().split())
 #     if n==0 and k==0:
@@ -25,7 +26,7 @@ while True:
         break
     arr=list(map(int,input().split()))
     
-    dp=[[0]*(k+1) for _ in range(100)]
+    dp=[[0 for _ in range(100)] for _ in range(n)]
     for i in range(n):
         dp[i][1]=1
         for j in range(0,i,1):
