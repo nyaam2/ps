@@ -26,10 +26,10 @@ dap=0
 while left<=right:
     mid=left+(right-left)/2
     if b*math.sin(mid)<=-a*mid+c:
-        left=mid+Decimal(0.00000000001)
+        left=mid+Decimal(0.0000000001)
         dap=mid
     elif b*math.sin(mid)>-a*mid+c:
-        right=mid-Decimal(0.00000000001)
+        right=mid-Decimal(0.0000000001)
 
 
 print(dap)

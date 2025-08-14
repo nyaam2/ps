@@ -1,64 +1,51 @@
-d,num=map(str,input().split())
-
+d,num=input().split()
 x,y=map(int,input().split())
+list=list(num)
 
-a,b=0,0
-t=int(d)-1
+n=int(d)
+n=2**n
+r,c=0,0 #row, column
+
+
 for i in num:
-    
+    n=n//2
     if i=='1':
-        a+=pow(2,t)
-    if i=='2':
+        c+=n
+    elif i=='2':
         continue
-    if i=='3':
-        b+=pow(2,t)
-    if i=='4':
-        a+=pow(2,t)
-        b+=pow(2,t)
-    t-=1
-# print(a,b)
+    elif i=='3':
+        r+=n
+    else:
+        r+=n
+        c+=n
+# print(r,c)
 
-a+=x
-b-=y
+r-=y
+c+=x
 
-limit=pow(2,int(d))
-if not (0<=a<limit and 0<=b<limit):
-    print(-1)
-    exit()
-tt=int(d)-1
-dap=""
-def go():
-    global a,b,tt,dap
+n=2**int(d)
+ans=''
 
-    if tt==-1:
-        return
-    p=pow(2,tt)
+while n>1:
+    if 0<=r<n//2 and 0<=c<n//2:
+        ans+='2'
 
-    #4사분면
-    if p<=a and p<=b:
-        a-=p
-        b-=p
-        dap+="4"
-    #1사분면
-    elif p<=a and b<p:
-        a-=p
-        dap+="1"
-    #3사분면
-    elif a<p and p<=b :
-        b-=p
-        dap+="3"
-    elif 0<=a<p and 0<=b<p:
-        dap+="2"
+    elif 0<=r<n//2 and n//2<=c<n:
+        c-=n//2
+        ans+='1'
+    elif n//2<=r<n and 0<=c<n//2:
+        r-=n//2
+        ans+='3'
+    elif n//2<=r<n and n//2<=c<n:
+        r-=n//2
+        c-=n//2
+        ans+='4'
     else:
         print(-1)
         exit()
+    n=n//2
 
-    tt-=1
-    go()
-
-go()
-print(dap)
-        
+print(ans)
 
 
 

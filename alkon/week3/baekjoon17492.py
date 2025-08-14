@@ -15,7 +15,6 @@ def go():
     # for i in arr:
     #     print(i,end="\n")
 
-    print()
     for x in range(n):
        for y in range(n):
             if arr[x][y]!=2:

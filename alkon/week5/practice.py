@@ -11,11 +11,18 @@ while True:
     if m!=0 or em!=0 or mh!=0:
         if m!=0:
             m-=1
+        # else:
+        #     if em>=mh:
+        #         em-=1
+        #     else:
+        #         mh-=1
         else:
             if em>mh:
                 em-=1
             else:
                 mh-=1
+    #만약 이렇게 하면, 0 2 0 2 0인 상황에서 반례나옴
+    
     else:
         break
     if h!=0 or mh!=0:

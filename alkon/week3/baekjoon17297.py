@@ -14,11 +14,11 @@ def search(step,order):
     global arr
     if order<=arr[1]:
         return order
-    if order<arr[step-1]:
+    if order<=arr[step-1]:
         return search(step-1,order)
     elif order==arr[step-1]+1:
         return -1
-    elif order>arr[step-1]:
+    elif order>arr[step-1]+1:
         return search(step-2,order-arr[step-1]-1)
     
 dap=search(size,m)

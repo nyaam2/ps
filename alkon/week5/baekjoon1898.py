@@ -21,7 +21,7 @@ for i in range(0,n,1):
         visited[arr[i]]=True
         break
     
-print("\n"*3)
+# print("\n"*3) # For Test
 
 for value in m:
     print(m[value])

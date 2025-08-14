@@ -7,6 +7,7 @@ sum=0
 dap=0
 for i in range(n):
     heapq.heappush(pq,-arr[i])
+    
     sum+=arr[i]
 
    

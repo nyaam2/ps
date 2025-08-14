@@ -22,7 +22,7 @@ while lo<=hi:
         cnt+=max(0,j-i)
     if cnt>need:
         hi=mid-1
-        
+       
         ans=mid
     else:
        
