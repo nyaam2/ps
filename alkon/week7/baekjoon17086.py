@@ -9,7 +9,10 @@ from collections import deque
 
 dx=[(-1,1),(-1,0),(-1,-1),(0,1),(0,-1),(1,1),(1,0),(1,-1)]
 
+
 dq=deque()
+
+
 def bfs(x,y):
     
     visited=[[False for _ in range(m)] for _ in range(n)]
@@ -26,6 +29,7 @@ def bfs(x,y):
                     if board[ny][nx]==1:
                         return c+1
                     else:
+                        # visited[ny][nx] = True  # 여기서도 enqueue 전에 방문체크
                         dq.append((nx,ny,c+1))
     return 0
 result=0
